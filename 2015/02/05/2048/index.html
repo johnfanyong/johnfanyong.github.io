@@ -8,7 +8,17 @@
   <meta name="description" content="title: “2048”date: 2015-02-05 16:59:18tags: [js,html]categories: [html]
 
 
-    alert($);">
+.main{
+    width:400px;
+    height:400px;
+    margin:0 auto;
+    margin-top: 50px;
+}
+.row{
+    clear:both;
+}
+.cell{
+    float:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hello">
 <meta property="og:url" content="http://johnfanyong.github.io/2015/02/05/2048/">
@@ -16,13 +26,33 @@
 <meta property="og:description" content="title: “2048”date: 2015-02-05 16:59:18tags: [js,html]categories: [html]
 
 
-    alert($);">
+.main{
+    width:400px;
+    height:400px;
+    margin:0 auto;
+    margin-top: 50px;
+}
+.row{
+    clear:both;
+}
+.cell{
+    float:">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hello">
 <meta name="twitter:description" content="title: “2048”date: 2015-02-05 16:59:18tags: [js,html]categories: [html]
 
 
-    alert($);">
+.main{
+    width:400px;
+    height:400px;
+    margin:0 auto;
+    margin-top: 50px;
+}
+.row{
+    clear:both;
+}
+.cell{
+    float:">
 
   
     <link rel="alternative" href="/atom.xml" title="Hello" type="application/atom+xml">
@@ -84,9 +114,334 @@
       
         <p>title: “2048”<br>date: 2015-02-05 16:59:18<br>tags: [js,html]<br>categories: [html]</p>
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-<script>
-    alert($);
+<style>
+.main{
+    width:400px;
+    height:400px;
+    margin:0 auto;
+    margin-top: 50px;
+}
+.row{
+    clear:both;
+}
+.cell{
+    float:left;
+    display:block;
+    height:98px;
+    width:98px;
+    line-height: 100px;
+    background-color:#CCC;
+    border:thin solid #000;
+    text-align: center;
+}
+.cell2{
+    background-color: #F0F8FF;    font-size: 78px;
+}
+.cell4{
+    background-color: #FAEBD7;    font-size: 78px;
+}
+.cell8{
+    background-color: #DEB887;    font-size: 78px;
+}
+.cell16{
+    background-color: #B8860B;    font-size: 78px;
+}
+.cell32{
+    background-color: #E9967A;    font-size: 78px;
+}
+.cell64{
+    background-color: #D19275;    font-size: 78px;
+}
+.cell128{
+    background-color: #FF00FF;    font-size: 64px;
+}
+.cell256{
+    background-color: #FFD700;    font-size: 64px;
+}
+.cell512{
+    background-color: #ADFF2F;    font-size: 64px;
+}
+.cell1024{
+    background-color: #87CEFA;    font-size: 48px;
+}
+.cellBiger{
+    background-color: #8470FF;    font-size: 38px;
+}
+</style>
+<script type="text/javascript">
+    (function(){
+        var keynum,
+        getKeyNum = function(e){        
+            if(window.event) // IE
+            {
+                keynum = window.event.keyCode;
+            }
+            else if(e.which) // Netscape/Firefox/Opera
+            {
+                keynum = e.which;
+            }
+            switch(keynum){
+                case 37:moveLeft();break;
+                case 38:moveUp();break;
+                case 39:moveRight();break;
+                case 40:moveDown();break;
+            }
+        },
+        init = function(){
+            createNewCellValue(2);
+            document.onkeydown = function(e){
+                getKeyNum(e);
+            };
+        },
+        moveUp = function(){
+            moveColumn('up');
+        },
+        moveDown = function(){
+            moveColumn('down');
+        },
+        moveLeft = function(){
+            moveRow('left');
+        },
+        moveRight = function(){
+            moveRow('right');
+        },
+        moveRow = function(direction){
+            if(!canMove(direction)){
+                var emptyCell = getEmptyCell();
+                var gameOver = isGameOver(emptyCell);
+                return;
+            }
+            for(var rowIndex=1;rowIndex<5;rowIndex++){
+                var val=[],newVal=[];
+                for(var i=1;i<5;i++){
+                    if(getValue('c'+rowIndex+''+i)>0){
+                        val[val.length]=getValue('c'+rowIndex+''+i);
+                    }
+                }
+                if(direction=='left'){
+                    newVal = calculateValue(val);
+                    for(var i=0;i<newVal.length;i++){
+                        setValue(('c'+rowIndex+''+(i+1)),newVal[i]);
+                    }
+                    for(var i=0;i<(4-newVal.length);i++){
+                        setValue(('c'+rowIndex+''+(4-i)),'');
+                    }
+                }else if(direction=='right'){
+                    newVal = calculateValue(val.reverse());
+                    for(var i=0;i<newVal.length;i++){
+                        setValue(('c'+rowIndex+''+(4-i)),newVal[i]);
+                    }
+                    for(var i=0;i<(4-newVal.length);i++){
+                        setValue(('c'+rowIndex+''+(1+i)),'');
+                    }
+                }
+            }
+            createNewCellValue();
+        },
+        moveColumn = function(direction){
+            if(!canMove(direction)){
+                var emptyCell = getEmptyCell();
+                var gameOver = isGameOver(emptyCell);
+                if(gameOver){
+                    alert('Game Over');
+                }
+                return;
+            }
+            for(var colIndex=1;colIndex<5;colIndex++){
+                var val=[],newVal=[];
+                for(var i=1;i<5;i++){
+                    if(getValue('c'+i+''+colIndex)>0){
+                        val[val.length]=getValue('c'+i+''+colIndex);
+                    }
+                }
+                if(direction=='up'){
+                    newVal = calculateValue(val);
+                    for(var i=0;i<newVal.length;i++){
+                        setValue(('c'+(i+1)+''+colIndex),newVal[i]);
+                    }
+                    for(var i=0;i<(4-newVal.length);i++){
+                        setValue(('c'+(4-i)+''+colIndex),'');
+                    }
+                }else if(direction=='down'){
+                    newVal = calculateValue(val.reverse());
+                    for(var i=0;i<newVal.length;i++){
+                        setValue(('c'+(4-i)+''+colIndex),newVal[i]);
+                    }
+                    for(var i=0;i<(4-newVal.length);i++){
+                        setValue(('c'+(1+i)+''+colIndex),'');
+                    }
+                }
+            }
+            createNewCellValue();
+
+        },
+        calculateValue = function(arr){
+            var rtn = [],hasRepeat=false;
+
+            for(var i=0;i<arr.length;i++){
+                if(arr[i]==arr[i+1]&&!hasRepeat){
+                    rtn[rtn.length]=arr[i]*2;
+                    i+=1;
+                    if(i>arr.length){
+                        break;
+                    }
+                    hasRepeat=true
+                }else{
+                    rtn[rtn.length]=arr[i];
+                }
+            }
+            return rtn;
+        },
+        getValue = function(emId){
+            console.log(emId);
+            if(typeof(emId)=='string'){
+                return document.getElementById(emId).innerText*1;
+            }else{
+                return emId.innerText*1;    
+            }
+
+        },
+        setValue = function(emId,val){
+            if(typeof(emId)=='string'){
+                document.getElementById(emId).innerText=val=='0'?'':val;
+                if(val!=0){
+                    document.getElementById(emId).className='cell cell'+(val>1024?'Biger':val);
+                }else{
+                    document.getElementById(emId).className='cell';
+                }
+            }else{
+                emId.innerText=val=='0'?'':val;
+                if(val!=0){
+                    emId.className='cell cell'+(val>1024?'Biger':val);
+                }else{
+                    emId.className='cell';
+                }
+            }
+
+        },
+        createNewNum = function(){
+            var randomNum = Math.random();
+            if(randomNum>0.3){
+                return 2;
+            }else{
+                return 4;    
+            }
+        },
+        createNewCellValue = function(count){
+            var num = createNewNum();
+            var emptyCell = getEmptyCell();
+            var gameOver = isGameOver(emptyCell);
+            if(gameOver){
+                alert('game over');
+            }else{
+                if(emptyCell.length>0){
+                    if(!count){
+                        count = 1;    
+                    }
+                    for(var i=0;i<count;i++){
+                        var index = getRandomNum(1,emptyCell.length);
+                        setValue(emptyCell[index-1],num);
+                    }
+
+                }
+            }
+
+        },
+        getRandomNum = function(Min,Max)
+        {   
+            var Range = Max - Min;   
+            var Rand = Math.random();   
+            return(Min + Math.round(Rand * Range));   
+        },
+        getEmptyCell = function(){
+            var emptyCells = [];
+            var cells = document.getElementsByTagName('span');
+            for(var i=0,l=cells.length;i<l;i<i++){
+                if(getValue(cells[i])==0){
+                    emptyCells[emptyCells.length]=cells[i];
+                }
+            }
+            return emptyCells;
+        },
+        test = function(a){
+            for(var i=0;i<a;i++){
+                var num = getRandomNum(1,a);
+                document.writeln(num);
+            }    
+        },
+        //�Ƿ������ƶ�
+        canMove = function(direction){
+            for(var i=1;i<5;i++){
+                for(var j=1;j<5;j++){
+                    var c = getValue('c'+i+''+j),
+                        cNext;
+                    if(c==0){
+                        continue;
+                    }
+                    switch(direction){
+                        case 'up':
+                            if(i==1){
+                                continue;
+                            }
+                            cNext = getValue('c'+(i-1)+''+j);
+                            break;
+                        case 'down':
+                            if(i==4){
+                                continue;
+                            }
+                            cNext = getValue('c'+(i+1)+''+j);
+                            break;
+                        case 'left':
+                            if(j==1){
+                                continue;
+                            }
+                            cNext = getValue('c'+i+''+(j-1));
+                            break;
+                        case 'right':
+                            if(j==4){
+                                continue;
+                            }
+                            cNext = getValue('c'+i+''+(j+1));
+                            break;
+                    }
+
+                    //���ڵĵ�Ԫ��Ϊ�գ�������ͬ����ʾ�����ƶ�    
+                    if(cNext==0||cNext==c){
+                        return true;
+                    }
+                }
+            }
+            return false;
+        },
+        //�ж���Ϸ�Ƿ�ʧ��
+        isGameOver = function(emptyCell){
+            if(emptyCell.length>0){
+                return false;
+            }else{
+                for(var i=1;i<5;i++){
+                    for(var j=1;j<5;j++){
+                        var c = getValue('c'+i+''+j),
+                            cRight=j+1==5?null:getValue('c'+i+''+(j+1)),
+                            cDown=i+1==5?null:getValue('c'+(i+1)+''+j);
+                        if(c==cRight||c==cDown){
+                            return false;
+                        }
+                    }
+                }    
+            }
+            return true;
+        };
+
+        window.Game={
+            getKeyNum : getKeyNum,
+            getRandomNum : getRandomNum,
+            init:init
+        }
+    })();
 </script>
+
+<p></p>
+<body onload="Game.init();"><br><div class="main"><br>    <div class="row"><br>        <span class="cell" name"cell"="" id="c11"></span><br>        <span class="cell" name"cell"="" id="c12"></span><br>        <span class="cell" name"cell"="" id="c13"></span><br>        <span class="cell" name"cell"="" id="c14"></span><br>    </div><br>    <div class="row"><br>        <span class="cell" id="c21"></span><br>        <span class="cell" id="c22"></span><br>        <span class="cell" id="c23"></span><br>        <span class="cell" id="c24"></span><br>    </div><br>    <div class="row"><br>        <span class="cell" id="c31"></span><br>        <span class="cell" id="c32"></span><br>        <span class="cell" id="c33"></span><br>        <span class="cell" id="c34"></span><br>    </div><br>    <div class="row"><br>        <span class="cell" id="c41"></span><br>        <span class="cell" id="c42"></span><br>        <span class="cell" id="c43"></span><br>        <span class="cell" id="c44"></span><br>    </div><br></div><br></body>
       
     </div>
     <footer class="article-footer">
