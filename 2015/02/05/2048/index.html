@@ -186,6 +186,11 @@
                 case 39:moveRight();break;
                 case 40:moveDown();break;
             }
+            if(e.preventDefault){
+                e.preventDefault
+            }else{
+                e.returnValue = false;    
+            }
             return false;
         },
         init = function(){
