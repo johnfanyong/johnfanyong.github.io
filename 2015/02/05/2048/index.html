@@ -5,18 +5,18 @@
   
   <title>2048 | Hello</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="����:Thu Feb 05 2015 16:59:18 GMT+0800 (中国标准时间)
-.main{width:400px;height:400px;margin:0 auto;}.row{clear:both;}.cell{float:left;display:block;height:98px;width:98px;line-height: 100px;background-color">
+  <meta name="description" content="日期:Thu Feb 05 2015 16:59:18 GMT+0800 (中国标准时间)
+.main{width:400px;height:400px;margin:0 auto;}.row{clear:both;}.cell{float:left;display:block;height:98px;width:98px;line-height: 100px;background-color:#">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2048">
 <meta property="og:url" content="http://johnfanyong.github.io/2015/02/05/2048/">
 <meta property="og:site_name" content="Hello">
-<meta property="og:description" content="����:Thu Feb 05 2015 16:59:18 GMT+0800 (中国标准时间)
-.main{width:400px;height:400px;margin:0 auto;}.row{clear:both;}.cell{float:left;display:block;height:98px;width:98px;line-height: 100px;background-color">
+<meta property="og:description" content="日期:Thu Feb 05 2015 16:59:18 GMT+0800 (中国标准时间)
+.main{width:400px;height:400px;margin:0 auto;}.row{clear:both;}.cell{float:left;display:block;height:98px;width:98px;line-height: 100px;background-color:#">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2048">
-<meta name="twitter:description" content="����:Thu Feb 05 2015 16:59:18 GMT+0800 (中国标准时间)
-.main{width:400px;height:400px;margin:0 auto;}.row{clear:both;}.cell{float:left;display:block;height:98px;width:98px;line-height: 100px;background-color">
+<meta name="twitter:description" content="日期:Thu Feb 05 2015 16:59:18 GMT+0800 (中国标准时间)
+.main{width:400px;height:400px;margin:0 auto;}.row{clear:both;}.cell{float:left;display:block;height:98px;width:98px;line-height: 100px;background-color:#">
 
   
     <link rel="alternative" href="/atom.xml" title="Hello" type="application/atom+xml">
@@ -90,7 +90,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>����:Thu Feb 05 2015 16:59:18 GMT+0800 (中国标准时间)</p>
+        <p>日期:Thu Feb 05 2015 16:59:18 GMT+0800 (中国标准时间)</p>
 <p><style><br>.main{width:400px;height:400px;margin:0 auto;}.row{clear:both;}.cell{float:left;display:block;height:98px;width:98px;line-height: 100px;background-color:#CCC;border:thin solid #000;text-align: center;}.cell2{background-color: #F0F8FF;font-size: 78px;}.cell4{background-color: #FAEBD7;font-size: 78px;}.cell8{background-color: #DEB887;font-size: 78px;}.cell16{    background-color: #B8860B;font-size: 78px;}.cell32{background-color: #E9967A;font-size: 78px;}.cell64{background-color: #D19275;font-size: 78px;}.cell128{background-color: #FF00FF;font-size: 64px;}.cell256{background-color: #FFD700;font-size: 64px;}.cell512{background-color: #ADFF2F;font-size: 64px;}.cell1024{    background-color: #87CEFA;font-size: 48px;}.cellBiger{background-color: #8470FF;font-size: 38px;}</style></p>
 <script type="text/javascript">
 
@@ -300,7 +300,7 @@
                 document.writeln(num);
             }    
         },
-        //�Ƿ������ƶ�
+        //是否可以移动
         canMove = function(direction){
             for(var i=1;i<5;i++){
                 for(var j=1;j<5;j++){
@@ -336,7 +336,7 @@
                             break;
                     }
 
-                    //���ڵĵ�Ԫ��Ϊ�գ�������ͬ����ʾ�����ƶ�    
+                    //相邻的单元格为空，或者相同，表示可以移动    
                     if(cNext==0||cNext==c){
                         return true;
                     }
@@ -344,7 +344,7 @@
             }
             return false;
         },
-        //�ж���Ϸ�Ƿ�ʧ��
+        //判断游戏是否失败
         isGameOver = function(emptyCell){
             if(emptyCell.length>0){
                 return false;
